@@ -33,11 +33,14 @@ public class ListMenu extends AppCompatActivity {
     List<Menu> Menus;
     ListView listViewMenu;
 
+    Button btnAdd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_menu);
         initViews();
+        initListeners();
 
         mServiceApi = RetrofitServer.getClient().create(ServiceApi.class);
         Call<List<Menu>> menuCall = mServiceApi.getMenu();
@@ -46,9 +49,9 @@ public class ListMenu extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Menu>> call, final Response<List<Menu>> response) {
                 Log.d("TAG","on response");
-                //creating Userlist adapter
+
                 AdapterListMenu MenuAdapter = new AdapterListMenu(ListMenu.this, response.body());
-                //attaching adapter to the listview
+
                 listViewMenu.setAdapter(MenuAdapter);
                 listViewMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -66,13 +69,25 @@ public class ListMenu extends AppCompatActivity {
                 Log.d("TAG",t.toString());
             }
         });
-
-
-
     }
 
     private void initViews() {
         listViewMenu = findViewById(R.id.listViewMenu);
+        txtNamaMenu = findViewById(R.id.txtNamaMenu);
+        txtDeskripsi = findViewById(R.id.txtDeskripsi);
+        txtHarga = findViewById(R.id.txtHarga);
+        txtGambar = findViewById(R.id.txtGambar);
+
+        btnAdd = findViewById(R.id.btnAdd);
+    }
+
+    private void initListeners() {
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addMenu();
+            }
+        });
     }
 
     private void CallUpdateAndDeleteDialog(final String id_menu, final String nama_menu, final String deskripsi, final String harga, final String gambar, String id_user){
@@ -83,10 +98,10 @@ public class ListMenu extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         //Access Dialog views for Menu
-        txtNamaMenu = dialogView.findViewById(R.id.txtNamaMenu);
-        txtDeskripsi = dialogView.findViewById(R.id.txtDeskripsi);
-        txtHarga = dialogView.findViewById(R.id.txtHarga);
-        txtGambar = dialogView.findViewById(R.id.txtGambar);
+        final EditText txtNamaMenu = dialogView.findViewById(R.id.txtNamaMenu);
+        final EditText txtDeskripsi = dialogView.findViewById(R.id.txtDeskripsi);
+        final EditText txtHarga = dialogView.findViewById(R.id.txtHarga);
+        final EditText txtGambar = dialogView.findViewById(R.id.txtGambar);
 
         txtNamaMenu.setText(nama_menu);
         txtDeskripsi.setText(deskripsi);
@@ -129,6 +144,53 @@ public class ListMenu extends AppCompatActivity {
                 b.dismiss();
             }
         });
+    }
+
+    public boolean addMenu(){
+        String nama_menu = txtNamaMenu.getText().toString().trim();
+        String deskripsi = txtDeskripsi.getText().toString().trim();
+        String harga = txtHarga.getText().toString().trim();
+        String gambar = txtGambar.getText().toString().trim();
+
+
+        if (!TextUtils.isEmpty(nama_menu)) {
+            if (!TextUtils.isEmpty(deskripsi)) {
+                if (!TextUtils.isEmpty(harga)) {
+                    if (!TextUtils.isEmpty(gambar)) {
+                        //do add here bruh
+                        Call<Menu> menuCall = mServiceApi.postMenu(nama_menu, deskripsi, harga, gambar, "1");
+                        menuCall.enqueue(new Callback<Menu>() {
+                            @Override
+                            public void onResponse(Call<Menu> call, Response<Menu> response) {
+                                Log.d("TAG", "Post success");
+                                Log.d("TAG", response.body().toString());
+                                txtNamaMenu.setText("");
+                                txtDeskripsi.setText("");
+                                txtHarga.setText("");
+                                txtGambar.setText("");
+                                Toast.makeText(getApplicationContext(), "Menu added", Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Menu> call, Throwable t) {
+                                Log.d("TAG", "Post failure");
+                            }
+                        });
+                    } else {
+                        Toast.makeText(this, "Masukkan Gambar", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Masukkan Harga", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(this, "Masukkan Deskripsi", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(this, "Masukkan Nama Menu", Toast.LENGTH_LONG).show();
+        }
+
+        Toast.makeText(getApplicationContext(), "Menu Updated", Toast.LENGTH_LONG).show();
+        return true;
     }
 
     public boolean updateMenu(String id_menu, String nama_menu, String deskripsi, String harga, String gambar){
