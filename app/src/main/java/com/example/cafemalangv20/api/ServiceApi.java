@@ -36,4 +36,7 @@ public interface ServiceApi {
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "Rest_menu", hasBody = true)
     Call<Menu> deleteStok(@Field("id_menu") String id_menu);
+
+//    Meja
+    
 }
