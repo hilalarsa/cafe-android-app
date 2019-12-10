@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.cafemalangv20.Model.Menu;
 import com.example.cafemalangv20.api.RetrofitServer;
@@ -31,7 +32,6 @@ public class ListMenu extends AppCompatActivity {
     EditText txtNamaMenu, txtDeskripsi, txtHarga, txtGambar;
     List<Menu> Menus;
     ListView listViewMenu;
-    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +42,22 @@ public class ListMenu extends AppCompatActivity {
         mServiceApi = RetrofitServer.getClient().create(ServiceApi.class);
         Call<List<Menu>> menuCall = mServiceApi.getMenu();
 
-
-        Log.d("TAG","on create");
-
         menuCall.enqueue(new Callback<List<Menu>>() {
             @Override
-            public void onResponse(Call<List<Menu>> call, Response<List<Menu>> response) {
+            public void onResponse(Call<List<Menu>> call, final Response<List<Menu>> response) {
                 Log.d("TAG","on response");
                 //creating Userlist adapter
                 AdapterListMenu MenuAdapter = new AdapterListMenu(ListMenu.this, response.body());
                 //attaching adapter to the listview
                 listViewMenu.setAdapter(MenuAdapter);
+                listViewMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        //show detail
+                        Menu Menu = response.body().get(i);
+                        CallUpdateAndDeleteDialog(Menu.getIdMenu(), Menu.getNamaMenu(), Menu.getDeskripsi(), Menu.getHarga(), Menu.getGambar(), Menu.getIdUser());
+                    }
+                });
             }
 
             @Override
@@ -62,14 +67,7 @@ public class ListMenu extends AppCompatActivity {
             }
         });
 
-        listViewMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //show detail
-                Menu Menu = Menus.get(i);
-                CallUpdateAndDeleteDialog(Menu.getIdMenu(), Menu.getNamaMenu(), Menu.getDeskripsi(), Menu.getHarga(), Menu.getGambar(), Menu.getIdUser());
-            }
-        });
+
 
     }
 
@@ -133,12 +131,14 @@ public class ListMenu extends AppCompatActivity {
         });
     }
 
-    public void updateMenu(String id_menu, String nama_menu, String deskripsi, String harga, String gambar){
-
+    public boolean updateMenu(String id_menu, String nama_menu, String deskripsi, String harga, String gambar){
+        Toast.makeText(getApplicationContext(), "Menu Updated", Toast.LENGTH_LONG).show();
+        return true;
     }
 
-    public void deleteMenu(String id_menu){
-
+    public boolean deleteMenu(String id_menu){
+        Toast.makeText(getApplicationContext(), "Menu Deleted", Toast.LENGTH_LONG).show();
+        return true;
     }
 
 }
