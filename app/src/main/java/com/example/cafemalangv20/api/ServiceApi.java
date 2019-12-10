@@ -1,5 +1,6 @@
 package com.example.cafemalangv20.api;
 
+import com.example.cafemalangv20.Model.Meja;
 import com.example.cafemalangv20.Model.Menu;
 
 import java.util.List;
@@ -58,5 +59,5 @@ public interface ServiceApi {
 
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "Rest_meja", hasBody = true)
-    Call<Meja> deleteStok(@Field("id_meja") String id_menu);
+    Call<Meja> deleteMeja(@Field("id_meja") String id_meja);
 }
