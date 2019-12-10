@@ -22,15 +22,15 @@ public interface ServiceApi {
     @FormUrlEncoded
     @POST("Rest_menu")
     Call<Menu> postMenu
-            (@Field("id_menu") String id_menu, @Field("nama_menu") String nama_menu,
+            (@Field("nama_menu") String nama_menu,
              @Field("deskripsi") String deskripsi, @Field("harga") String harga,
              @Field("gambar") String gambar, @Field("id_user") String id_user);
 
     @FormUrlEncoded
     @PUT("Rest_menu")
     Call<Menu> putMenu
-            (@Field("id_menu") String id_menu, @Field("nama_menu") String nama_menu,
-            @Field("deskripsi") String deskripsi, @Field("harga") String harga,
+            (@Field("nama_menu") String nama_menu,
+                @Field("deskripsi") String deskripsi, @Field("harga") String harga,
             @Field("gambar") String gambar, @Field("id_user") String id_user);
 
     @FormUrlEncoded
