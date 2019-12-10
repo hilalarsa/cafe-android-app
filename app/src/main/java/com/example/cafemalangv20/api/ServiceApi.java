@@ -38,6 +38,26 @@ public interface ServiceApi {
     @HTTP(method = "DELETE", path = "Rest_menu", hasBody = true)
     Call<Menu> deleteStok(@Field("id_menu") String id_menu);
 
-//    Meja
-    
+//    **************Meja*******************
+
+    @GET("Rest_meja")
+    Call<List<Meja>> getMeja();
+
+    @FormUrlEncoded
+    @POST("Rest_meja")
+    Call<Meja> postMeja
+            (@Field("id_meja") String id_menu, @Field("no_meja") String no_meja,
+             @Field("jumlah_kursi") String jumlah_kursi, @Field("status") String status,
+             @Field("id_user") String id_user);
+
+    @FormUrlEncoded
+    @PUT("Rest_meja")
+    Call<Meja> putMeja
+            (@Field("id_meja") String id_menu, @Field("no_meja") String no_meja,
+             @Field("jumlah_kursi") String jumlah_kursi, @Field("status") String status,
+             @Field("id_user") String id_user);
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = "Rest_meja", hasBody = true)
+    Call<Meja> deleteStok(@Field("id_meja") String id_menu);
 }
