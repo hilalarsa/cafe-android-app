@@ -1,4 +1,4 @@
-package com.example.cafemalangv20.Class;
+package com.example.cafemalangv20.Model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -22,17 +22,21 @@ public class Menu {
     @SerializedName("gambar")
     @Expose
     private String gambar;
+    @SerializedName("id_user")
+    @Expose
+    private String id_user;
 
     List<Menu> listMenu;
 
     public Menu(){ }
 
-    public Menu(String id_menu, String nama_menu, String deskripsi, String harga, String gambar){
+    public Menu(String id_menu, String nama_menu, String deskripsi, String harga, String gambar, String id_user){
         this.id_menu = id_menu;
         this.nama_menu = nama_menu;
         this.deskripsi = deskripsi;
         this.harga = harga;
         this.gambar = gambar;
+        this.id_user = id_user;
     }
 
     public List<Menu> getAllMenu(){
@@ -70,5 +74,7 @@ public class Menu {
     public String getGambar() {return gambar;}
     public void setGambar(String gambar) {this.gambar = gambar;}
 
+    public String getIdUser() {return id_user;}
+    public void setIdUser(String id_user) {this.gambar = id_user;}
 
 }
