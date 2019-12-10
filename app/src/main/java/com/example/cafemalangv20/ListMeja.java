@@ -2,10 +2,13 @@ package com.example.cafemalangv20;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.cafemalangv20.Model.Meja;
@@ -25,9 +28,11 @@ public class ListMeja extends AppCompatActivity {
 
     ServiceApi mServiceApi;
 
+    EditText txtNoMeja, txtJumlahKursi, txtStatus;
     List<Meja> Mejas;
     ListView listViewMeja;
     Context mContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +50,7 @@ public class ListMeja extends AppCompatActivity {
             public void onResponse(Call<List<Meja>> call, Response<List<Meja>> response) {
                 Log.d("TAG","on response");
                 //creating Userlist adapter
-                AdapterListMeja MenuAdapter = new AdapterListMenu(ListMeja.this, response.body());
+                AdapterListMeja MejaAdapter = new AdapterListMeja(ListMeja.this, response.body());
                 //attaching adapter to the listview
                 listViewMeja.setAdapter(MejaAdapter);
             }
@@ -78,7 +83,56 @@ public class ListMeja extends AppCompatActivity {
         final View dialogView = inflater.inflate(R.layout.update_popup_meja, null);
         dialogBuilder.setView(dialogView);
 
+        //Access Dialog views for Meja
+        txtNoMeja = dialogView.findViewById(R.id.no_meja);
+        txtJumlahKursi = dialogView.findViewById(R.id.jumlah_kursi);
+        txtStatus = dialogView.findViewById(R.id.status);
+
+        txtNoMeja.setText(no_meja);
+        txtJumlahKursi.setText(jumlah_kursi);
+        txtStatus.setText(status);
+
+        final Button btnUpdate = dialogView.findViewById(R.id.btnUpdate);
+        final Button btnDelete = dialogView.findViewById(R.id.btnDelete);
+
+        dialogBuilder.setTitle("Please fill with your data");
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String no_meja = txtNoMeja.getText().toString().trim();
+                String jumlah_kursi = txtJumlahKursi.getText().toString().trim();
+                String status = txtStatus.getText().toString().trim();
+//                String gambar = txtGambar.getText().toString().trim();
+
+                if (!TextUtils.isEmpty(no_meja)) {
+                    if (!TextUtils.isEmpty(jumlah_kursi)) {
+                        if (!TextUtils.isEmpty(status)) {
+                            updateMeja(id_meja, no_meja, status);
+                            b.dismiss();
+                        }
+                    }
+                }
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteMeja(id_meja);
+                b.dismiss();
+            }
+        });
+
     }
+
+    public void updateMeja(String id_meja, String no_meja, String status){
+
+    }
+
+    public void deleteMeja(String id_meja){
 
     }
 }
