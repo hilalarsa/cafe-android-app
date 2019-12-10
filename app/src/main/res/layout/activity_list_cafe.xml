@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/input_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ListCafe"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/cafe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/nama_cafe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nama Cafe"
+            android:inputType="text" />
+        <EditText
+            android:id="@+id/lokasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lokasi"
+            android:layout_below="@id/nama_cafe"
+            android:inputType="text" />
+        <EditText
+            android:id="@+id/deskripsi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Deskripsi"
+            android:layout_below="@id/lokasi"
+            android:inputType="text" />
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tambah data dummy"></Button>
+    <ListView
+        android:id="@+id/listViewMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.cafemalangv20.api;
 
+import com.example.cafemalangv20.Model.Cafe;
 import com.example.cafemalangv20.Model.Menu;
 
 import java.util.List;
@@ -38,5 +39,23 @@ public interface ServiceApi {
     Call<Menu> deleteStok(@Field("id_menu") String id_menu);
 
 //    Meja
-    
+
+    @GET("Rest_cafe")
+    Call<List<Cafe>> getCafe();
+
+    @FormUrlEncoded
+    @POST("Rest_cafe")
+    Call<Cafe> postCafe
+            (@Field("id_cafe") String id_cafe, @Field("nama_cafe") String nama_cafe, @Field("lokasi") String lokasi,
+             @Field("deskripsi") String deskripsi);
+
+    @FormUrlEncoded
+    @PUT("Rest_cafe")
+    Call<Cafe> putCafe
+            (@Field("id_cafe") String id_cafe, @Field("nama_cafe") String nama_cafe, @Field("lokasi") String lokasi,
+             @Field("deskripsi") String deskripsi);
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = "Rest_cafe", hasBody = true)
+    Call<Cafe> deleteCafe(@Field("id_cafe") String id_cafe);
 }
