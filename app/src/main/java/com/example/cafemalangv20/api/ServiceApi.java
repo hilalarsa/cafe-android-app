@@ -1,21 +1,31 @@
 package com.example.cafemalangv20.api;
 
 import com.example.cafemalangv20.Model.Cafe;
+import com.example.cafemalangv20.Model.Get.GetUser;
 import com.example.cafemalangv20.Model.Menu;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 
 public interface ServiceApi {
     String BASE_URL = "http://192.168.43.110:8080/proyek-backup/proyek/index.php/";
 
+    //login
+    @Multipart
+    @POST("Rest_login")
+    Call<GetUser> postLogin(
+            @Part("nrp") RequestBody nrp,
+            @Part("password") RequestBody password);
 
     @GET("Rest_menu")
     Call<List<Menu>> getMenu();

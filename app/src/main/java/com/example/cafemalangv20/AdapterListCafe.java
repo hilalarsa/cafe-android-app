@@ -32,11 +32,11 @@ public class AdapterListCafe extends ArrayAdapter<Cafe> {
         TextView textViewLokasi = (TextView) listViewItem.findViewById
                 (R.id.textViewLokasi);
         //getting user at position
-        Cafe Cafe = Cafes.get(position);
+        Cafe cafe = Cafes.get(position);
         //set user name
-        com.example.cafemalangv20.Model.Cafe.setText(com.example.cafemalangv20.Model.Cafe.getNamaCafe());
+        textViewNamaCafe.setText(cafe.getNamaCafe());
         //set user email
-        textViewLokasi.setText(com.example.cafemalangv20.Model.Cafe.getLokasi());
+        textViewLokasi.setText(cafe.getLokasi());
         return listViewItem;
     }
 }

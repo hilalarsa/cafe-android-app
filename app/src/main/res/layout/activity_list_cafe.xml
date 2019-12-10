@@ -33,13 +33,14 @@
             android:layout_below="@id/lokasi"
             android:inputType="text" />
     </RelativeLayout>
+
     <Button
         android:id="@+id/btn_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tambah data dummy"></Button>
     <ListView
-        android:id="@+id/listViewMenu"
+        android:id="@+id/listViewCafe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ListView>
