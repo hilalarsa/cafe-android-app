@@ -1,8 +1,7 @@
 package com.example.cafemalangv20.api;
 
-import com.example.cafemalangv20.Class.Menu;
+import com.example.cafemalangv20.Model.Menu;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -25,14 +24,14 @@ public interface ServiceApi {
     Call<Menu> postMenu
             (@Field("id_menu") String id_menu, @Field("nama_menu") String nama_menu,
              @Field("deskripsi") String deskripsi, @Field("harga") String harga,
-             @Field("gambar") String gambar);
+             @Field("gambar") String gambar, @Field("id_user") String id_user);
 
     @FormUrlEncoded
     @PUT("Rest_menu")
     Call<Menu> putMenu
             (@Field("id_menu") String id_menu, @Field("nama_menu") String nama_menu,
             @Field("deskripsi") String deskripsi, @Field("harga") String harga,
-            @Field("gambar") String gambar);
+            @Field("gambar") String gambar, @Field("id_user") String id_user);
 
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "Rest_menu", hasBody = true)
