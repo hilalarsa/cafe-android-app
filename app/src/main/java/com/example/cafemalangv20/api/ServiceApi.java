@@ -71,7 +71,7 @@ public interface ServiceApi {
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "Rest_meja", hasBody = true)
     Call<Meja> deleteMeja(@Field("id_meja") String id_meja);
-//    Meja
+//    cafe
 
     @GET("Rest_cafe")
     Call<List<Cafe>> getCafe();
