@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUsername, etPassword;
     Button btLogin;
     ServiceApi mApiInterface;
-    String svUsername;
+    String svUsername, svId_user;
 
     public static final String PREFS = "examplePrefs";
 
@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     private void openHome() {
         Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);
         intent.putExtra("username", svUsername);
+        intent.putExtra("id_user", svId_user);
         this.startActivity(intent);
     }
 
@@ -95,7 +96,8 @@ public class LoginActivity extends AppCompatActivity {
                     AlertDialog alert=builder.create();
                     alert.show();
                 }else{
-                    svUsername = response.body().getResult();
+                    svUsername = response.body().getUsername();
+                    svId_user = response.body().getResult();
                     saveCredentials();
                     openHome();
                 }

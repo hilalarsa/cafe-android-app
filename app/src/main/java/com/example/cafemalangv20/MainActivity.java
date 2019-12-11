@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         btnMenu = findViewById(R.id.btnMenu);
         btnMeja = findViewById(R.id.btnMeja);
         btnUser = findViewById(R.id.btnUser);
-        btnCafe = findViewById(R.id.btnCafe);
+//        btnCafe = findViewById(R.id.btnCafe);
     }
 
     public void initListener(){

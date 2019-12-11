@@ -7,8 +7,8 @@ public class GetUser {
     private String status;
     @SerializedName("result")
     private String result;
-    @SerializedName("id_user")
-    private String id_user;
+    @SerializedName("username")
+    private String username;
 
     public void setStatus(String status) {
         this.status = status;
@@ -22,8 +22,8 @@ public class GetUser {
         return result;
     }
 
-    public String getId_user() {
-        return id_user;
+    public String getUsername() {
+        return username;
     }
 
 }
