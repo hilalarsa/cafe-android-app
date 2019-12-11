@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.cafemalangv20.Model.Meja;
 import com.example.cafemalangv20.Model.Menu;
@@ -43,21 +44,22 @@ public class ListMeja extends AppCompatActivity {
         mServiceApi = RetrofitServer.getClient().create(ServiceApi.class);
         Call<List<Meja>> mejaCall = mServiceApi.getMeja();
 
-        Log.d("TAG","on create");
+        Log.d("TAG", "on create");
 
         mejaCall.enqueue(new Callback<List<Meja>>() {
             @Override
             public void onResponse(Call<List<Meja>> call, Response<List<Meja>> response) {
-                Log.d("TAG","on response");
+                Log.d("TAG", "on response");
                 //creating Userlist adapter
                 AdapterListMeja MejaAdapter = new AdapterListMeja(ListMeja.this, response.body());
                 //attaching adapter to the listview
                 listViewMeja.setAdapter(MejaAdapter);
             }
+
             @Override
             public void onFailure(Call<List<Meja>> call, Throwable t) {
-                Log.d("TAG","on failure");
-                Log.d("TAG",t.toString());
+                Log.d("TAG", "on failure");
+                Log.d("TAG", t.toString());
             }
         });
 
@@ -76,7 +78,7 @@ public class ListMeja extends AppCompatActivity {
         listViewMeja = findViewById(R.id.listViewMeja);
     }
 
-    private void CallUpdateAndDeleteDialog(final String id_meja, final String no_meja, final String jumlah_kursi, final String status, String id_user){
+    private void CallUpdateAndDeleteDialog(final String id_meja, final String no_meja, final String jumlah_kursi, final String status, String id_user) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ListMeja.this);
 
         LayoutInflater inflater = getLayoutInflater();
@@ -128,11 +130,51 @@ public class ListMeja extends AppCompatActivity {
 
     }
 
-    public void updateMeja(String id_meja, String no_meja, String status){
+    public boolean addMeja() {
+        String no_meja = txtNoMeja.getText().toString().trim();
+        String jumlah_kursi = txtJumlahKursi.getText().toString().trim();
+        String status = txtStatus.getText().toString().trim();
+
+
+        if (!TextUtils.isEmpty(no_meja)) {
+            if (!TextUtils.isEmpty(jumlah_kursi)) {
+                if (!TextUtils.isEmpty(status)) {
+                    Call<Meja> mejaCall = mServiceApi.postMeja("", no_meja, jumlah_kursi, status, "1");
+                    mejaCall.enqueue(new Callback<Meja>() {
+                        @Override
+                        public void onResponse(Call<Meja> call, Response<Meja> response) {
+                            Log.d("TAG", "Post success");
+                            Log.d("TAG", response.body().toString());
+                            txtNoMeja.setText("");
+                            txtJumlahKursi.setText("");
+                            txtStatus.setText("");
+                            Toast.makeText(getApplicationContext(), "Menu added", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Meja> call, Throwable t) {
+                            Log.d("TAG", "Post failure");
+
+                        }
+                    });
+                } else {
+                    Toast.makeText(this, "Masukkan Status", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(this, "Masukkan Jumlah Kursi", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(this, "Masukkan No Meja", Toast.LENGTH_LONG).show();
+        }
+        return  true;
+    }
+
+
+    public void updateMeja(String id_meja, String no_meja, String status) {
 
     }
 
-    public void deleteMeja(String id_meja){
+    public void deleteMeja(String id_meja) {
 
     }
 }
