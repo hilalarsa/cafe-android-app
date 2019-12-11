@@ -22,7 +22,7 @@
         android:layout_height="150dp"
         android:paddingBottom="20dp"
         android:layout_below="@+id/tvUsername"
-        android:text="Edit profile"></Button>
+        android:text="Profile Cafe"></Button>
 
     <Button
         android:id="@+id/btnMenu"
@@ -46,14 +46,6 @@
         android:paddingBottom="20dp"
         android:text="User"
         android:layout_below="@id/btnMeja"
-        ></Button>
-    <Button
-        android:id="@+id/btnCafe"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:paddingBottom="20dp"
-        android:text="Info Cafe"
-        android:layout_below="@id/btnUser"
         ></Button>
 
 </RelativeLayout>
