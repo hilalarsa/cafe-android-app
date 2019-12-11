@@ -52,7 +52,7 @@ public class ListUser extends AppCompatActivity {
                 //creating Userlist adapter
                 AdapterListUser UserAdapter = new AdapterListUser(ListUser.this, response.body());
                 //attaching adapter to the listview
-                User.setAdapter(UserAdapter);
+                listViewUser.setAdapter(UserAdapter);
             }
 
             @Override
