@@ -7,14 +7,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:text="Username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
 
     <Button
         android:id="@+id/btnProfile"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:paddingBottom="20dp"
+        android:layout_below="@+id/tvUsername"
         android:text="Edit profile"></Button>
 
     <Button
@@ -40,4 +47,13 @@
         android:text="User"
         android:layout_below="@id/btnMeja"
         ></Button>
+    <Button
+        android:id="@+id/btnCafe"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:paddingBottom="20dp"
+        android:text="Info Cafe"
+        android:layout_below="@id/btnUser"
+        ></Button>
+
 </RelativeLayout>
