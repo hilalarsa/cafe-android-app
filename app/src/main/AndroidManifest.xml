@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ListMenu"></activity>
         <activity android:name=".ListMeja"></activity>
+        <activity android:name=".ListMeja"></activity>
         <activity android:name=".ListCafe"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".LoginActivity">

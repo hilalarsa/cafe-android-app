@@ -4,6 +4,7 @@ import com.example.cafemalangv20.Model.Meja;
 import com.example.cafemalangv20.Model.Cafe;
 import com.example.cafemalangv20.Model.Get.GetUser;
 import com.example.cafemalangv20.Model.Menu;
+import com.example.cafemalangv20.Model.User;
 
 import java.util.List;
 
@@ -91,4 +92,25 @@ public interface ServiceApi {
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "Rest_cafe", hasBody = true)
     Call<Cafe> deleteCafe(@Field("id_cafe") String id_cafe);
+
+//    ******************USER
+
+    @GET("Rest_user")
+    Call<List<User>> getUser();
+
+    @FormUrlEncoded
+    @POST("Rest_user")
+    Call<User> postUser
+            (@Field("id_user") String id_user, @Field("nama") String nama, @Field("email") String email,
+             @Field("username") String username, @Field("password") String password, @Field("level") String level);
+
+    @FormUrlEncoded
+    @PUT("Rest_user")
+    Call<User> putUser
+            (@Field("id_user") String id_user, @Field("nama") String nama, @Field("email") String email,
+             @Field("username") String username, @Field("password") String password, @Field("level") String level);
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = "Rest_user", hasBody = true)
+    Call<User> deleteUser(@Field("id_user") String id_user);
 }
