@@ -66,10 +66,10 @@ public class LoginActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    private void checkCredentials(String nrp, String password) {
+    private void checkCredentials(String username, String password) {
         mApiInterface = RetrofitServer.getClient().create(ServiceApi.class);
         RequestBody reqUsername = MultipartBody.create(MediaType.parse("multipart/form-data"),
-                (nrp.toString().isEmpty())?"":nrp.toString());
+                (username.toString().isEmpty())?"":username.toString());
         RequestBody reqPassword = MultipartBody.create(MediaType.parse("multipart/form-data"),
                 (password.toString().isEmpty())?"":password.toString());
 
