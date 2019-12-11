@@ -25,7 +25,7 @@ public interface ServiceApi {
     @Multipart
     @POST("Rest_login")
     Call<GetUser> postLogin(
-            @Part("nrp") RequestBody nrp,
+            @Part("username") RequestBody username,
             @Part("password") RequestBody password);
 
     @GET("Rest_menu")
