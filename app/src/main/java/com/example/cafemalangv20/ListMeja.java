@@ -28,6 +28,7 @@ import retrofit2.Response;
 public class ListMeja extends AppCompatActivity {
 
     ServiceApi mServiceApi;
+    Button btnAdd;
 
     EditText txtNoMeja, txtJumlahKursi, txtStatus;
     List<Meja> Mejas;
@@ -40,42 +41,54 @@ public class ListMeja extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_meja);
         initViews();
+        initListeners();
 
         mServiceApi = RetrofitServer.getClient().create(ServiceApi.class);
         Call<List<Meja>> mejaCall = mServiceApi.getMeja();
 
-        Log.d("TAG", "on create");
-
         mejaCall.enqueue(new Callback<List<Meja>>() {
             @Override
-            public void onResponse(Call<List<Meja>> call, Response<List<Meja>> response) {
-                Log.d("TAG", "on response");
-                //creating Userlist adapter
+            public void onResponse(Call<List<Meja>> call, final Response<List<Meja>> response) {
+                Log.d("TAG","on response");
+
                 AdapterListMeja MejaAdapter = new AdapterListMeja(ListMeja.this, response.body());
-                //attaching adapter to the listview
+
                 listViewMeja.setAdapter(MejaAdapter);
+                listViewMeja.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        //show detail
+                        Meja Meja = response.body().get(i);
+                        CallUpdateAndDeleteDialog(Meja.getIdMeja() , Meja.getNoMeja() , Meja.getJumlahKursi() , Meja.getStatus() , Meja.getIdUser() );
+                    }
+                });
             }
 
             @Override
             public void onFailure(Call<List<Meja>> call, Throwable t) {
-                Log.d("TAG", "on failure");
-                Log.d("TAG", t.toString());
+                Log.d("TAG","on failure");
+                Log.d("TAG",t.toString());
             }
         });
+    }
 
-        listViewMeja.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void initListeners() {
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //show detail
-                Meja Meja = Mejas.get(i);
-                CallUpdateAndDeleteDialog(Meja.getIdMeja(), Meja.getNoMeja(), Meja.getJumlahKursi(), Meja.getStatus(), Meja.getIdUser());
+            public void onClick(View view) {
+                addMeja();
             }
         });
-
     }
 
     private void initViews() {
         listViewMeja = findViewById(R.id.listViewMeja);
+        txtNoMeja = findViewById(R.id.no_meja);
+        txtJumlahKursi = findViewById(R.id.jumlah_kursi);
+        txtStatus = findViewById(R.id.status);
+
+        btnAdd = findViewById(R.id.btn_add);
+
     }
 
     private void CallUpdateAndDeleteDialog(final String id_meja, final String no_meja, final String jumlah_kursi, final String status, String id_user) {
@@ -148,7 +161,7 @@ public class ListMeja extends AppCompatActivity {
                             txtNoMeja.setText("");
                             txtJumlahKursi.setText("");
                             txtStatus.setText("");
-                            Toast.makeText(getApplicationContext(), "Menu added", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Meja added", Toast.LENGTH_LONG).show();
                         }
 
                         @Override

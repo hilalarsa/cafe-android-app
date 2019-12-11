@@ -68,6 +68,16 @@ public class MainActivity extends AppCompatActivity {
 //                addMenu();
             }
         });
+
+        btnUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //this method is actually performing the write operation
+                Intent intent2 = new Intent(MainActivity.this, ListUser.class);
+                startActivity(intent2);
+//                addMenu();
+            }
+        });
     }
 
     public void addProfile(){
