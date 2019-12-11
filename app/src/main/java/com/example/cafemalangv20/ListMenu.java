@@ -73,10 +73,10 @@ public class ListMenu extends AppCompatActivity {
 
     private void initViews() {
         listViewMenu = findViewById(R.id.listViewMenu);
-        txtNamaMenu = findViewById(R.id.txtNamaMenu);
-        txtDeskripsi = findViewById(R.id.txtDeskripsi);
-        txtHarga = findViewById(R.id.txtHarga);
-        txtGambar = findViewById(R.id.txtGambar);
+        txtNamaMenu = findViewById(R.id.nama_menu);
+        txtDeskripsi = findViewById(R.id.deskripsi);
+        txtHarga = findViewById(R.id.harga);
+        txtGambar = findViewById(R.id.gambar);
 
         btnAdd = findViewById(R.id.btnAdd);
     }
@@ -152,7 +152,6 @@ public class ListMenu extends AppCompatActivity {
         String harga = txtHarga.getText().toString().trim();
         String gambar = txtGambar.getText().toString().trim();
 
-
         if (!TextUtils.isEmpty(nama_menu)) {
             if (!TextUtils.isEmpty(deskripsi)) {
                 if (!TextUtils.isEmpty(harga)) {
@@ -194,12 +193,44 @@ public class ListMenu extends AppCompatActivity {
     }
 
     public boolean updateMenu(String id_menu, String nama_menu, String deskripsi, String harga, String gambar){
+        Call<Menu> menuCall = mServiceApi.putMenu(nama_menu, deskripsi, harga, gambar, "1");
+        menuCall.enqueue(new Callback<Menu>() {
+            @Override
+            public void onResponse(Call<Menu> call, Response<Menu> response) {
+                Log.d("TAG", "Put success");
+                Log.d("TAG", response.body().toString());
+                txtNamaMenu.setText("");
+                txtDeskripsi.setText("");
+                txtHarga.setText("");
+                txtGambar.setText("");
+            }
+
+            @Override
+            public void onFailure(Call<Menu> call, Throwable t) {
+                Log.d("TAG", "Put failure");
+                Log.d("TAG", t.toString());
+            }
+        });
         Toast.makeText(getApplicationContext(), "Menu Updated", Toast.LENGTH_LONG).show();
         return true;
     }
 
     public boolean deleteMenu(String id_menu){
-        Toast.makeText(getApplicationContext(), "Menu Deleted", Toast.LENGTH_LONG).show();
+        Call<Menu> menuCall = mServiceApi.deleteMenu(id_menu);
+        menuCall.enqueue(new Callback<Menu>() {
+            @Override
+            public void onResponse(Call<Menu> call, Response<Menu> response) {
+                Log.d("TAG", "Put success");
+                Log.d("TAG", response.body().toString());
+                Toast.makeText(getApplicationContext(), "Menu Deleted", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Menu> call, Throwable t) {
+                Log.d("TAG", "Delete failure");
+                Log.d("TAG", t.toString());
+            }
+        });
         return true;
     }
 
