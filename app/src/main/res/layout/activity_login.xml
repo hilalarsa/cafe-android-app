@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <LinearLayout
+            android:layout_marginTop="50dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+            <TextView
+                android:text="Kasir Qita"
+                android:fontFamily="cursive"
+                android:textStyle="bold"
+                android:textSize="20pt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp">
+            <EditText
+                android:id="@+id/etUsername"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:layout_gravity="center"
+                android:hint="Username"
+                android:inputType="text"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_below="@+id/etUsername"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btLogin"
+                android:layout_below="@+id/etPassword"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="LOGIN"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_orange_light"
+                android:background="@color/colorPrimary"
+                android:onClick="buttonClick"/>
+
+        </RelativeLayout>
+    </TableLayout>
+
+</RelativeLayout>
