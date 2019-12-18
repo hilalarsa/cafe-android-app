@@ -20,7 +20,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 
 public interface ServiceApi {
-    String BASE_URL = "http://192.168.43.110:8080/proyek-backup/proyek/index.php/";
+    String BASE_URL = "https://cafe-api.000webhostapp.com/index.php/";
 
     //login
     @Multipart

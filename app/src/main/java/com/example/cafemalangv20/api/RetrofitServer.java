@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitServer {
 
-    private static final String base_url = "http://192.168.43.110:8080/proyek-backup/proyek/index.php/";
+    private static final String base_url = "https://cafe-api.000webhostapp.com/index.php/";
 
 
     private static Retrofit retrofit;
